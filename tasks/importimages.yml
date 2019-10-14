@@ -1,48 +1,21 @@
 ---
-# tasks file for import-containers
 
-
-#Test that core.tar is on filesystem
 - name: "Does the import location contain the file specified?"
   stat:
-#    path: /var/lib/docker/overlay2/export/core.tar
-    path: "{{ocp_images_push_core_location}}"/import/core.tar
-   # path: /tmp/core.tar
+    path: "{{rh_ocp_export_path_core}}"
   register: core
 
-- name: Load, core OSCP images from core.tar
-  docker_image:
-    name: localhost:5000/{{ item }}
-    #name: "localhost:5000/{{ core_img}}:{{ core_tag }}" >> /tmp/core.out
-    tag: "{{ core_tag }}"
-    push: yes
-    load_path: /import/core.tar
-  with_items: "{{ ocp_images_push_core }}"
+- name: Load, core OCP images from core.tar
+  shell: |
+         docker load -i "{{rh_ocp_export_path_core}}"
   when: core.stat.exists == true
 
-#Test that apps.tar is on filesystem
-#- stat:
-#    path: /var/lib/docker/overlay2/export/apps.tar
-#  register: apps
-#
-#- name: Load, S2I images from apps.tar
-#  docker_image:
-#    name: this is a test load
-#    load_path: /var/lib/docker/overlay2/export/apps.tar
-#  when: apps.stat.exists == true
-#
-#
-##Test that optional.tar is on filesystem
-#- stat:
-#    path: /var/lib/docker/overlay2/export/core.tar
-#  register: option
-#
-#- name: Load, optional images from optional.tar
-#  docker_image:
-#    name: this is a test load
-#    load_path: /var/lib/docker/overlay2/export/core.tar
-#  when: option.stat.exists == true
+- name: "Does the import location contain the file specified?"
+  stat:
+    path: "{{rh_ocp_export_path_app}}"
+  register: app
 
-
-
-
+- name: Load, app OCP images from app.tar
+  shell: |
+         docker load -i "{{rh_ocp_export_path_app}}"
+  when: app.stat.exists == true

@@ -1,4 +1,4 @@
-Role Name
+ansible-role-ocp-images-push
 =========
 
 Role written to speed up the process of retagging and pushing container images to an internal repository.
@@ -12,17 +12,23 @@ Role Variables
 --------------
 
 
+
 Dependencies
 ------------
 
+You can use the ansible-role-ocp-image-pull to pull images. This needs to be run before using this role.
 
 Example Playbook
 ----------------
 
-Example playbook
-    - hosts: servers
-      roles:
-         - ansible-role-ocp-images-push
+- name: OpenShift Disconnected Prep
+  hosts: localhost
+  become: true
+
+  tasks:
+    - name: "Include the image push role"
+      include_role:
+        name: ../roles/ansible-role-ocp-image-push
 
 License
 -------
