@@ -2,10 +2,15 @@
 # defaults file for import-containers
 
 ocp_core_tag: v3.11
+ocp_core_fulltag: v3.11.146
 ocp_etcd_tag: 3.2.22
 ocp_app_tag: latest
+ocp_app_fulltag: latest
 ocp_opt_tag: latest
+ocp_opt_fulltag: latest
 ocp_nonrh_tag: latest
+ocp_nonrh_fulltag: latest
+ocp_image_inspector_tag: 2.11
 
 # Do you want the images to be imported into the local docker system?
 ocp_images_push_import: "no"
@@ -38,7 +43,6 @@ core_ocp_images:
   - openshift3/csi-livenessprobe
   - openshift3/csi-provisioner
   - openshift3/grafana
-  - openshift3/image-inspector:{{ image_inspector_version }}
   - openshift3/local-storage-provisioner
   - openshift3/manila-provisioner
   - openshift3/mariadb-apb
@@ -88,6 +92,9 @@ core_ocp_images:
 
 etcd_ocp_image:
   - rhel7/etcd
+
+image_inspector_ocp_image:
+  - openshift3/image-inspector
 
 rh_app_images:
   - openshift3/jenkins-1-rhel7
