@@ -1,0 +1,47 @@
+---
+# tasks file for import-containers
+
+
+#Test that core.tar is on filesystem
+- stat:
+#    path: /var/lib/docker/overlay2/export/core.tar
+    path: /import/core.tar
+   # path: /tmp/core.tar
+  register: core
+
+- name: Load, core OSCP images from core.tar
+  docker_image:
+    name: localhost:5000/{{ item }}
+    #name: "localhost:5000/{{ core_img}}:{{ core_tag }}" >> /tmp/core.out
+    tag: "{{ core_tag }}"
+    push: yes
+    load_path: /import/core.tar
+  with_items: "{{ core_img }}"
+  when: core.stat.exists == true
+
+#Test that apps.tar is on filesystem
+#- stat:
+#    path: /var/lib/docker/overlay2/export/apps.tar
+#  register: apps
+#
+#- name: Load, S2I images from apps.tar
+#  docker_image:
+#    name: this is a test load
+#    load_path: /var/lib/docker/overlay2/export/apps.tar
+#  when: apps.stat.exists == true
+#
+#
+##Test that optional.tar is on filesystem
+#- stat:
+#    path: /var/lib/docker/overlay2/export/core.tar
+#  register: option
+#
+#- name: Load, optional images from optional.tar
+#  docker_image:
+#    name: this is a test load
+#    load_path: /var/lib/docker/overlay2/export/core.tar
+#  when: option.stat.exists == true
+
+
+
+
