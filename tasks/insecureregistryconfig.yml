@@ -1,0 +1,13 @@
+---
+
+- name: "Update docker configuration with insecure registry."
+  blockinfile:
+    path: "{{docker_config_file}}"
+    marker_begin: Docker Insecure Registry Start
+    block: |
+           DOCKER_OPTS='--insecure-registry "{{ocp_push_internal_repo}}":"{{ocp_push_internal_repo_port}}"'
+
+    marker_end: Docker Insecure registry End
+    insertbefore: "^OPTIONS='--selinux-enabled --log-driver=journald --signature-verification=false'"
+    state: present
+      

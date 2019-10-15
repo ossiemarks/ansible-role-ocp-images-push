@@ -1,4 +1,7 @@
 ---
+# Is the internal docker repository secure?
+docker_repo_insecure: "yes"
+docker_config_file: /etc/sysconfig/docker
 # defaults file for import-containers
 
 ocp_core_tag: v3.11
@@ -25,6 +28,7 @@ ocp_images_retag_nonrh: "no"
 
 # What is the name or IP of the internal repo that will be used.
 ocp_push_internal_repo: 127.0.0.1
+ocp_push_internal_repo_port: 5000
 
 # Path for exports
 rh_ocp_export_path: "/exports"

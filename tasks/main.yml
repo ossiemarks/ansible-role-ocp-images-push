@@ -8,6 +8,12 @@
       when : 
         - ocp_images_push_import == "yes"
 
+    - name: "Configure Docker for insecure registry"
+      include_tasks: insecureregistryconfig.yml
+      tags: [insecure]
+      when: 
+        - docker_repo_insecure == "yes"
+
     - name: "Retag and push images."
       include_tasks: retagimages.yml
 
