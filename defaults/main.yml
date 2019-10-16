@@ -13,7 +13,7 @@ ocp_opt_tag: latest
 ocp_opt_fulltag: latest
 ocp_nonrh_tag: latest
 ocp_nonrh_fulltag: latest
-ocp_image_inspector_tag: 2.11
+ocp_image_inspector_tag: 2.1
 
 # Do you want the images to be imported into the local docker system?
 ocp_images_push_import: "no"
