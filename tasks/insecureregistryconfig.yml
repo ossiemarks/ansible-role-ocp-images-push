@@ -1,0 +1,25 @@
+---
+
+- name: "Ensure SELinux is set to enforcing mode"
+  lineinfile:
+    path: "{{docker_config_file}}"
+    regexp: '^OPTIONS='
+    line: OPTIONS='--selinux-enabled --log-driver=journald --signature-verification=false --insecure-registry {{ocp_push_internal_repo}}'
+
+- name: "Restart docker service"
+  systemd:
+    state: restarted
+    daemon_reload: yes
+    name: docker
+
+#- name: "Update docker configuration with insecure registry."
+#  blockinfile:
+#    path: "{{docker_config_file}}"
+#    marker_begin: Docker Insecure Registry Start
+#    block: |
+#           DOCKER_OPTS='--insecure-registry {{ocp_push_internal_repo}}'
+#
+#    marker_end: Docker Insecure registry End
+#    insertbefore: "^OPTIONS='--selinux-enabled --log-driver=journald --signature-verification=false'"
+#    state: present
+      
