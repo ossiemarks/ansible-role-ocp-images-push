@@ -27,7 +27,7 @@ ocp_images_retag_opt: "no"
 ocp_images_retag_nonrh: "no"
 
 # What is the name or IP of the internal repo that will be used.
-ocp_push_internal_repo: 127.0.0.1
+ocp_push_internal_repo: 10.1.192.52
 ocp_push_internal_repo_port: 5000
 
 # Path for exports
